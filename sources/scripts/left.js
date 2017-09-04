@@ -69,7 +69,7 @@ function Left() {
   
   document.onkeydown = function key_down(e)
   {
-    if (e.key == "s" && e.ctrlKey) {
+    if (e.key === "s" && e.ctrlKey) {
       e.preventDefault();
       var text = left.textarea_el.value;
       var blob = new Blob([text], { type: "text/plain;charset=" + document.characterSet });
@@ -79,23 +79,23 @@ function Left() {
       saveAs(blob, "backup." + timestamp + ".txt");
     }
   
-    if ((e.key == "Backspace" || e.key == "Delete") && e.ctrlKey && e.shiftKey) {
+    if ((e.key === "Backspace" || e.key === "Delete") && e.ctrlKey && e.shiftKey) {
       e.preventDefault();
       left.textarea_el.value = left.splash();
       localStorage.setItem("backup", left.textarea_el.value);
     }
   
-    if (e.keyCode == 9 && left.suggestion) {
+    if (e.keyCode === 9 && left.suggestion) {
       left.autocomplete();
       e.preventDefault();
     }
   
-    if (e.key == "Enter" || e.key == " ") {
+    if (e.key === "Enter" || e.key === " ") {
       left.dictionary.update();
       left.refresh_settings();
     }
   
-    if (e.key.substr(0,5) == "Arrow") {
+    if (e.key.substr(0,5) === "Arrow") {
       left.refresh();
     }
   };
@@ -138,11 +138,11 @@ Left.prototype.refresh_navi = function() {
 
   for(var line_id in lines){
     var line = lines[line_id];
-    if(line.substr(0,2) == "@ " || line.substr(0,2) == "# "){ html += "<li onClick='go_to(\""+line+"\")'>"+line.replace("@ ","").replace("# ","")+"<span>"+line_id+"</span></li>"; markers.push(line); }
-    if(line.substr(0,2) == "$ " || line.substr(0,3) == "## "){ html += "<li onClick='go_to(\""+line+"\")' class='note'>"+line.replace("$ ","").replace("## ","")+"<span>"+line_id+"</span></li>"; markers.push(line); }
+    if(line.substr(0,2) === "@ " || line.substr(0,2) === "# "){ html += "<li onClick='go_to(\""+line+"\")'>"+line.replace("@ ","").replace("# ","")+"<span>"+line_id+"</span></li>"; markers.push(line); }
+    if(line.substr(0,2) === "$ " || line.substr(0,3) === "## "){ html += "<li onClick='go_to(\""+line+"\")' class='note'>"+line.replace("$ ","").replace("## ","")+"<span>"+line_id+"</span></li>"; markers.push(line); }
   }
 
-  if(markers.length == 0){
+  if(markers.length === 0){
     html = "No Markers";
   }
 
@@ -173,13 +173,13 @@ Left.prototype.refresh_settings = function() {
   }
   if(left.textarea_el.value.indexOf("~ left.suggestions=") >= 0){
     var suggestions_toggle = left.textarea_el.value.split("~ left.suggestions=")[1].split(" ")[0];
-    if(suggestions_toggle == "off"){ left.dictionary.is_suggestions_enabled = false; }
-    if(suggestions_toggle == "on"){ left.dictionary.is_suggestions_enabled = true; }
+    if(suggestions_toggle === "off"){ left.dictionary.is_suggestions_enabled = false; }
+    if(suggestions_toggle === "on"){ left.dictionary.is_suggestions_enabled = true; }
   }
   if(left.textarea_el.value.indexOf("~ left.synonyms=") >= 0){
     var synonyms_toggle = left.textarea_el.value.split("~ left.synonyms=")[1].split(" ")[0];
-    if(synonyms_toggle == "off"){ left.dictionary.is_synonyms_enabled = false; }
-    if(synonyms_toggle == "on"){ left.dictionary.is_synonyms_enabled = true; }
+    if(synonyms_toggle === "off"){ left.dictionary.is_synonyms_enabled = false; }
+    if(synonyms_toggle === "on"){ left.dictionary.is_synonyms_enabled = true; }
   }
 };
 
